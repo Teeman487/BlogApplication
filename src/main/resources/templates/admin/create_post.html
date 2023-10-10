@@ -1,0 +1,102 @@
+<!--Create Post form Handling-->
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+
+<div th:replace="admin/header :: header"></div>
+<body>
+<div th:replace="admin/header :: navbar"></div>
+<br /><br />
+
+<div class="container">
+    <div class="row col-md-8 offset-md-2">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="text-center"> Create Post</h2>
+            </div>
+
+            <div class="card-body" >  <!--th:action="@{/admin/tposts}" is redirective link url expresssion inline with submit form ; -->
+
+                <form role="form" method="post" th:action="@{/admin/posts}" th:object="${post}" >  <!-- i have redirected admin/posts/newpost to admin/posts  -->  <!--th:object="${post}" catches data from NewPost-->
+                    <div class="mb-3">
+                        <label class="form-label"> Post Title </label>
+                        <input
+                                type="text"
+                                class="form-control"
+                                id="title"
+                                placeholder="Enter your post title"
+                                name="title"
+                                th:field="*{title}"
+                        />
+
+                        <p th:if="${#fields.hasErrors('title')}" class="text-danger"
+                           th:errors="*{title}"></p> <!--step5 Error validation-->
+
+
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Post Short Description</label>
+                        <textarea
+                                class="form-control"
+                                id="briefContent"
+                                placeholder="Enter post brief description"
+                                rows="3"
+                                name="briefContent"
+                                th:field="*{briefSummary}"
+                        >
+
+                        </textarea>
+
+                        <p th:if="${#fields.hasErrors('briefSummary')}" class="text-danger"
+                           th:errors="*{briefSummary}"></p>    <!--step5 Error validation-->
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Content</label>
+                        <textarea
+                                class="form-control"
+                                id="content"
+                                placeholder="Enter post content"
+                                rows="12"
+                                name="content"
+                                th:field="*{content}"
+                        >
+                        </textarea>
+                        <p th:if="${#fields.hasErrors('content')}" class="text-danger"
+                           th:errors="*{content}"></p>  <!--step5 Error validation-->
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<br /><br /><br /><br /><br />
+<div th:replace="admin/footer :: footer"></div>
+
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"
+        integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
+        crossorigin="anonymous"></script>
+
+<script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+<script>
+    ClassicEditor
+        .create( document.querySelector( '#content' ) )
+        .then( editor => {
+            console.log( editor );
+        } )
+        .catch( error => {
+            console.error( error );
+        } );
+</script>
+
+</body>
+</html>
+
+
