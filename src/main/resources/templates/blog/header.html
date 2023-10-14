@@ -2,7 +2,7 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
 >
-<head th:fragment="header">  <!--indicate header page-->
+<head th:fragment="header"> <!--fragment expression to define the fragment-->
     <meta charset="UTF-8">
     <title>Spring Boot Thymeleaf Blog App </title>
     <link crossorigin="anonymous"
@@ -12,9 +12,9 @@
 
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark" th:fragment="navbar">  <!--bootstrap 5 navbar-->
+<nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark" th:fragment="navbar">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#"><strong>Akinade BlogAPP</strong></a>
+        <a class="navbar-brand" href="#">Akinade BlogAPP</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -22,19 +22,16 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" th:href="@{/admin/posts}">Posts</a>    <!-- @{link}: Link (URL) expressions: are meant to build URLs ina Thymeleaf templates-->
+                    <a class="nav-link active" aria-current="page" th:href="@{/
+                    }">All Posts</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" th:href="@{/admin/posts/newpost}">New Post</a>
+                    <a class="nav-link active" aria-current="page" th:href="@{/register}">Register</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" th:href="@{/login}">Login</a>
+                </li> <!--  <a class="nav-link active" aria-current="page" th:href="@{/logout}">Logout</a>-->
 
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" th:href="@{/admin/posts/comments}">Comments</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" th:href="@{/logout}">Logout</a>
-                </li>
             </ul>
 
         </div>
@@ -42,4 +39,4 @@
 </nav>
 
 </body>
-</html>-->
+</html>

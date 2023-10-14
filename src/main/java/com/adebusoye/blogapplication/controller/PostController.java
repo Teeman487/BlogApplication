@@ -1,7 +1,11 @@
 package com.adebusoye.blogapplication.controller;
 
+import com.adebusoye.blogapplication.dto.CommentDto;
 import com.adebusoye.blogapplication.dto.PostDto;
+import com.adebusoye.blogapplication.service.CommentService;
 import com.adebusoye.blogapplication.service.PostService;
+import com.adebusoye.blogapplication.util.ROLE;
+import com.adebusoye.blogapplication.util.SecurityUtils;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,15 +19,40 @@ import java.util.List;
 public class PostController {
     @Autowired
     PostService postService;
-
-    // handler method to creat Post
+    @Autowired
+    CommentService commentService;
+    // handler method to create Post
     @GetMapping("/admin/posts")  // http://localhost:8080/admin/posts
     public String posts(Model model) {
-        List<PostDto> posts = postService.findAllPosts(); //  To allow CRUD operations
+        String role = SecurityUtils.getRole(); // return current logged in user role
+        List<PostDto> posts = null;
+        if(ROLE.ROLE_ADMIN.name().equals(role)){  // ROLE is ROLE_ADMIN or ROLE_GUEST
+            posts = postService.findAllPosts();
+        }
+        else {
+            posts = postService.findPostByUser();
+        }
+        //List<PostDto> posts = postService.findAllPosts(); //  To allow CRUD operations
+       // List<PostDto> posts = postService.findPostByUser(); // FindPostByUser in
         model.addAttribute("posts", posts);
         return "/admin/posts"; // Thymeleaf view name
-
     }
+
+    /*@GetMapping("/admin/tposts")
+    public String posts(Model model){
+        String role = SecurityUtils.getRole();
+        List<TpostDto> tposts = null;
+        if(ROLE.ROLE_ADMIN.name().equals(role)){
+            tposts = tpostService.findAllPosts();
+        }else{
+            tposts = tpostService.findPostByUser();
+        }
+        model.addAttribute("tposts", tposts);
+        return "/admin/tposts";
+    }*/
+
+
+
     // handler method to handle NewPost request
     @GetMapping("/admin/posts/newpost")
     //  build tposts and newtpost in tposts.html/header in nav <li , <a @{admin/tposts /a> T-Post
@@ -33,10 +62,51 @@ public class PostController {
         model.addAttribute("post", postDto);   ///
         return "admin/create_post"; // Create Post Form Handling in template.admin in Html and design
     }
-    // handler method to handle create form submit request
-    @PostMapping("/admin/posts")
-    public String createPost(@Valid @ModelAttribute("post")  PostDto postDto, //Step3: Valid PostDto data
+    // handler method to handle list comments request 83
+    //108 Refactor Admin Side List Comments Feature
+    @GetMapping("/admin/posts/comments")
+    public String postComments(Model model) {
+        String role = SecurityUtils.getRole();
+        List<CommentDto>comments = null;
+        if(ROLE.ROLE_ADMIN.name().equals(role)){
+            comments = commentService.findAllComments();
+        } else {
+            comments = commentService.findCommentsByPost();
+        }
+       // List<CommentDto> comments = commentService.findAllComments();
+        //List<CommentDto> comments = commentService.findCommentsByPost();
+        model.addAttribute("comments", comments);
+        return "admin/comments";
+    }
+    /* @GetMapping("/admin/tposts/comments")
+    public String postComments(Model model){
+        String role = SecurityUtils.getRole();
+        List<CommentDto> comments = null;
+        if(ROLE.ROLE_ADMIN.name().equals(role)){
+            comments = commentService.findAllComments();
+        }else{
+            comments = commentService.findCommentsByPost();
+        }
+        model.addAttribute("comments", comments);
+        return "admin/comments";
+    }*/
 
+    // handler method to handle delete comment request 85
+    @GetMapping("/admin/posts/comments/{commentId}")
+    public String deleteComment(@PathVariable("commentId") Long commentId){
+        commentService.deleteComment(commentId);
+        return "redirect:/admin/posts/comments";
+    }
+
+
+
+
+
+
+
+    // handler method to handle create form submit request
+    @PostMapping("/admin/post")
+    public String createPost(@Valid @ModelAttribute("post")  PostDto postDto, //Step3: Valid PostDto data
                                  BindingResult result,   // step4:Use BindingResult to Check Errors and Return to UI
                                  Model model          // step5 @ModelAttribute(""post) will pass comment for empty submission
     ){ // ModelAttribute annotation will read form data and set the values to fields of the model object
@@ -103,6 +173,7 @@ public class PostController {
 
 
     }
+
 
     // Url
     private static String getUrl(String postTitle) {

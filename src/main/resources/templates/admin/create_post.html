@@ -18,7 +18,7 @@
 
             <div class="card-body" >  <!--th:action="@{/admin/tposts}" is redirective link url expresssion inline with submit form ; -->
 
-                <form role="form" method="post" th:action="@{/admin/posts}" th:object="${post}" >  <!-- i have redirected admin/posts/newpost to admin/posts  -->  <!--th:object="${post}" catches data from NewPost-->
+                <form role="form" method="post" th:action="@{/admin/post}" th:object="${post}" >  <!-- th:action="@{/admin/post}" it is uri on PostMapping at point of submitting  -->  <!--th:object="${post}" catches data from NewPost-->
                     <div class="mb-3">
                         <label class="form-label"> Post Title </label>
                         <input

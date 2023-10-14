@@ -27,7 +27,7 @@ public class PostDto { //Model entity is useful when we want to transport data b
 
     private LocalDateTime createdOn;
     private LocalDateTime updateOn;
-
+    private Set<CommentDto> comments; // 82 Display list of comments for Blog post
 }
 
 

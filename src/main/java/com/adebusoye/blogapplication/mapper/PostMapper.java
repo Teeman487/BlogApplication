@@ -17,6 +17,9 @@ public class PostMapper {
                 .briefSummary(post.getBriefSummary())
                 .createdOn(post.getCreatedOn())
                 .updateOn(post.getUpdateOn())
+                .comments(post.getComments().stream()
+                        .map(comment -> CommentMapper.mapToCommentDto(comment))
+                        .collect(Collectors.toSet()))
                 .build();
     }
     // map PostDto to  Post entity
