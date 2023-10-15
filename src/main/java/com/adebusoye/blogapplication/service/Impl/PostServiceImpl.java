@@ -27,14 +27,14 @@ public class PostServiceImpl implements PostService {
                 .collect(Collectors.toList());
     }
 
-    //find list of  all loggedIn User from database
+    //find list OF POSTS of  all loggedIn User from database // logic to get list of BlogPosts from loggedIn users
     @Override
     public List<PostDto> findPostByUser() { // logic to get list of BlogPosts from loggedIn users
         String email = SecurityUtils.getCurrentUser().getUsername(); // Current Logged In User from database
-        User createdBy = userRepository.findByEmail(email);
+        User createdBy = userRepository.findByEmail(email); // Repository located Current Logged In User from database
 
-        Long userId = createdBy.getId();
-        List<Post> posts = postRepository.findPostsByUser(userId); //
+        Long userId = createdBy.getId(); // Current Log In User from database located all users by id[]
+        List<Post> posts = postRepository.findPostsByUser(userId); // repo finds  Current Log In User from database to locate all users by id[]
         return posts.stream()
                 .map( PostMapper::mapToPostDto)
                 .collect(Collectors.toList());
@@ -58,16 +58,13 @@ public class PostServiceImpl implements PostService {
 
     }*/
 
-
-
-
-
+    // A logg in user can now do multiple posts
     @Override
     public void createPost(PostDto postDto) {     //createPost will redirect to Repository data-Post-Entity
         String email = SecurityUtils.getCurrentUser().getUsername();   // store the current logged-in userID in a posts table // we got login user email ID
-        User user = userRepository.findByEmail(email); // GET User object by email
+        User user = userRepository.findByEmail(email); // GET User object by email or String.id
         Post post = PostMapper.mapToPost(postDto);  // map PostDto to  Post entity
-        post.setCreatedBy(user);
+        post.setCreatedBy(user); // a logged in user can now do multiple posts
         postRepository.save(post); // createPost saved in Post Entity
     }
 

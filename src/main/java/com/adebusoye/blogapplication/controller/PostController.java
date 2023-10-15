@@ -26,7 +26,7 @@ public class PostController {
     public String posts(Model model) {
         String role = SecurityUtils.getRole(); // return current logged in user role
         List<PostDto> posts = null;
-        if(ROLE.ROLE_ADMIN.name().equals(role)){  // ROLE is ROLE_ADMIN or ROLE_GUEST
+        if(ROLE.ROLE_ADMIN.name().equals(role)){  // admin having authority
             posts = postService.findAllPosts();
         }
         else {
@@ -38,25 +38,9 @@ public class PostController {
         return "/admin/posts"; // Thymeleaf view name
     }
 
-    /*@GetMapping("/admin/tposts")
-    public String posts(Model model){
-        String role = SecurityUtils.getRole();
-        List<TpostDto> tposts = null;
-        if(ROLE.ROLE_ADMIN.name().equals(role)){
-            tposts = tpostService.findAllPosts();
-        }else{
-            tposts = tpostService.findPostByUser();
-        }
-        model.addAttribute("tposts", tposts);
-        return "/admin/tposts";
-    }*/
-
-
 
     // handler method to handle NewPost request
     @GetMapping("/admin/posts/newpost")
-    //  build tposts and newtpost in tposts.html/header in nav <li , <a @{admin/tposts /a> T-Post
-    // handler method to handle new post request
     public String newPost(Model model) {
         PostDto postDto = new PostDto();
         model.addAttribute("post", postDto);   ///

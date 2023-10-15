@@ -33,8 +33,8 @@ public class WebSpringSecurity {
                                 .requestMatchers(new AntPathRequestMatcher("/register/**")).permitAll()
                                 .requestMatchers(new AntPathRequestMatcher("/admin/**"))
                                 .hasAnyRole("ADMIN", "GUEST")
-                                .requestMatchers(new AntPathRequestMatcher("/")).permitAll()  //Spring Security for Client side
-                                .requestMatchers(new AntPathRequestMatcher("/post/**")).permitAll() //Spring Security for Client side
+                                .requestMatchers(new AntPathRequestMatcher("/")).permitAll()  //Spring Security for Client side // Client user is accessible to all users
+                                .requestMatchers(new AntPathRequestMatcher("/post/**")).permitAll() //Spring Security for Client side // post within client side is permitted
                                 .anyRequest().authenticated() //Spring Security for Client side
                 )
                 .formLogin(form -> form
