@@ -30,7 +30,7 @@ public class Comment {
     @UpdateTimestamp
     private LocalDateTime updatedOn;
 
-    @ManyToOne  // Multiple comments in post_id of comments rep (one) post(id) of Post Entity //
+    @ManyToOne  //  many comments for one post
     @JoinColumn(name = "post_id", nullable = false) // post_id is a foreign key to table post(id) // foreign key (post_id)
     private Post post; // indicate (one) post
 

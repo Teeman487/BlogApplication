@@ -5,7 +5,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 
 import java.util.Collection;
-//Whenever Adebusoye user[User] logged-in our blog app, Adebusoye user will create the blog post[NewPost], then we need to store that Adebusoye userID in a posts table[createdBy]
+//Whenever a user logged-in our blog app, user will create the blog post[NewPost], then we need to store that userID in a posts table[createdBy]
 //i.e as an ADMIN, After logging in with[User], i can create many posts for 1 User
 // First we write the code to get the logged-in (user-ID) from the spring security
 public class SecurityUtils {  // Refactor Create Post Feature For Logged in User

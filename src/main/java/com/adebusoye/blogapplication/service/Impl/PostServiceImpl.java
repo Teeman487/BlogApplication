@@ -61,8 +61,8 @@ public class PostServiceImpl implements PostService {
     // A logg in user can now do multiple posts
     @Override
     public void createPost(PostDto postDto) {     //createPost will redirect to Repository data-Post-Entity
-        String email = SecurityUtils.getCurrentUser().getUsername();   // store the current logged-in userID in a posts table // we got login user email ID
-        User user = userRepository.findByEmail(email); // GET User object by email or String.id
+        String email = SecurityUtils.getCurrentUser().getUsername();   // store the current logged-in userID in a posts table // we got login user by String(email) ID
+        User user = userRepository.findByEmail(email); // GET User object by String(email).id
         Post post = PostMapper.mapToPost(postDto);  // map PostDto to  Post entity
         post.setCreatedBy(user); // a logged in user can now do multiple posts
         postRepository.save(post); // createPost saved in Post Entity

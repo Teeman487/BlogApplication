@@ -34,10 +34,10 @@ public class Post { // Post is parent
     private LocalDateTime updateOn;
 
 
-    @ManyToOne   // 104    Define Many to One Relationship Between Post and
+    @ManyToOne   // 104    Many posts for 1 created_by
     @JoinColumn(name = "created_by", nullable = false) // we have created foreign key to Users table
-    private User createdBy; // drop comments, tposts, users, users_roles
-    //primary key of User table become the foreign key for Tpost table4
+    private User createdBy; // drop comments, posts, users, users_roles
+    //primary key of User table become the foreign key for Post table4
 
     /*  @ManyToOne  // Multiple comments in post_id of comments rep (one) post(id) of Post Entity //
     @JoinColumn(name = "post_id", nullable = false) // post_id is a foreign key to table post(id) // foreign key (post_id)

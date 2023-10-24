@@ -44,6 +44,17 @@ public class CommentServiceImpl implements CommentService {
                 .collect(Collectors.toList());
 
     }
+
+    /* // A logg in user can now do multiple posts
+    @Override
+    public void createPost(PostDto postDto) {     //createPost will redirect to Repository data-Post-Entity
+        String email = SecurityUtils.getCurrentUser().getUsername();   // store the current logged-in userID in a posts table // we got login user by String(email) ID
+        User user = userRepository.findByEmail(email); // GET User object by String(email).id
+        Post post = PostMapper.mapToPost(postDto);  // map PostDto to  Post entity
+        post.setCreatedBy(user); // a logged in user can now do multiple posts
+        postRepository.save(post); // createPost saved in Post Entity
+    }*/
+
     /* @Query(value = "select c.* from comments c inner join post p\n" +
             "where c.post_id = p.id and p.created_by =:userId", nativeQuery = true)
             many comments for one post and post created

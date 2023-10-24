@@ -62,7 +62,7 @@ public class PostController {
         model.addAttribute("comments", comments);
         return "admin/comments";
     }
-    /* @GetMapping("/admin/tposts/comments")
+    /* @GetMapping("/admin/posts/comments")
     public String postComments(Model model){
         String role = SecurityUtils.getRole();
         List<CommentDto> comments = null;
