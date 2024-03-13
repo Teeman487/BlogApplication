@@ -15,24 +15,26 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class CommentController {
-    @Autowired
     CommentService commentService;
-    @Autowired
     PostService postService;
-
+    public CommentController(CommentService commentService, PostService postService) {
+        this.commentService = commentService;
+        this.postService = postService;
+    }
 
     /* th:action="@{/{postUrl}/comments(postUrl=${post.url})}"
-                                th:object="${comment}"
-                        >  <!--redirecting comment to localhost:8080/{postUrl}/comments-->*/
+                                    th:object="${comment}"
+                            >  <!--redirecting comment to localhost:8080/{postUrl}/comments-->*/
     @PostMapping("/{postUrl}/comments")
     public String createComment(@PathVariable("postUrl") String postUrl,
                                  @Valid @ModelAttribute("comment") CommentDto commentDto,
                                 BindingResult result, // 81
                                 Model model){ //@Valid //81
 
+        // Handling post in comment
         PostDto postDto = postService.findPostByUrl(postUrl); // ERROR VALIDATION
         if(result.hasErrors()){
-           model.addAttribute("post", postDto); // ERROR VALIDATION
+          model.addAttribute("post", postDto); // ERROR VALIDATION
             model.addAttribute("comment", commentDto);
             return "blog/blog_post";
         }
@@ -43,6 +45,36 @@ public class CommentController {
 
         //return "redirect:/admin/posts";
     }
+
+    /*@PostMapping("/admin/posts/{postId}")
+    public  String  updatePost(@PathVariable("postId") Long postId,
+                               @Valid @ModelAttribute("post") PostDto postDto,
+                               BindingResult result,
+                               Model model) {
+        if(result.hasErrors()){
+            model.addAttribute("post",postDto);
+            return  "admin/edit_post";
+        }
+        postDto.setId(postId);
+        postService.updatePost(postDto);
+        return "redirect:/admin/posts";
+    }*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     /*  @PostMapping("/admin/posts/{postId}")
     public  String  updatePost(@PathVariable("postId") Long postId,
                                @Valid @ModelAttribute("post") PostDto postDto,

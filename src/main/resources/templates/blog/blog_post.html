@@ -9,6 +9,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-9">
+
             <h2 th:text="${post.title}"></h2>    <!--model1 - post-->
             <hr/>
             <h4 th:text="${post.briefSummary}"></h4>
@@ -22,7 +23,7 @@
             <div>
                 <h3>Comments:</h3>
 <!--                82 Display list of comments for Blog post-->
-                <div th:each = "comment: ${post.comments}">  <!--here post+comments--><!--iterating set of comments--> <!--private Set<CommentDto> comments; under PostDto-->
+                <div th:each = "comment: ${post.comments}">  <!--   post is a Parent table, comments has post_id, a foreign key to post(id); set many comments under postDto.. here post+comments--><!--iterating set of comments--> <!--private Set<CommentDto> comments; under PostDto-->
                     <div>
                         <p><b>Name:</b><strong th:text="${comment.name}"></strong></p>
                         <p><b>Date:<strong th:text="${#temporals.format(comment.createdOn, 'dd MMMM yyyy')}"></strong></b></p>
@@ -43,6 +44,7 @@
                                 method="post"
                                 th:action="@{/{postUrl}/comments(postUrl=${post.url})}"
                                 th:object="${comment}"
+
                         >
                             <!--{/{postUrl}/comments(postUrl=${post.url})} is uri on Post mapping at point of submitting - blog_post  -->
                             <!--th:object="${comment}" allows comment on this page-->
@@ -61,6 +63,7 @@
                                     />
                                     <!--Add error message 81-->
                                     <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></p>
+
                                 </div>
                             </div>
 

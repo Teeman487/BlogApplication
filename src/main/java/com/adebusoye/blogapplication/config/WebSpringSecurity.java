@@ -16,8 +16,13 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class WebSpringSecurity {
 
-@Autowired
+
     UserDetailsService userDetailsService;
+
+    public WebSpringSecurity(UserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
+
     @Bean
     public static PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
@@ -54,26 +59,26 @@ public class WebSpringSecurity {
                 .passwordEncoder(passwordEncoder());
     }
 }
-
-// ConfigureSpring Security to allow login
-/*@Configuration
-@EnableWebSecurity
-public class WebSpringSecurity {
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .authorizeHttpRequests((authorize) ->
-                        authorize
-                                .anyRequest().authenticated()
-                )
-                .formLogin( form -> form
-                        .loginPage("/login")
-                        .defaultSuccessUrl("/admin/posts")
-                        .loginProcessingUrl("/login")
-                        .permitAll()
-
-                );
-        return http.build();
-
-    }
-}*/
+//
+//// ConfigureSpring Security to reflect Custom login
+////@Configuration
+////@EnableWebSecurity
+////public class WebSpringSecurity {
+////    @Bean
+////    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+////        http.csrf().disable()
+////                .authorizeHttpRequests((authorize) ->
+////                        authorize
+////                                .anyRequest().authenticated()
+////                )
+////                .formLogin( form -> form
+////                        .loginPage("/login")
+////                        .defaultSuccessUrl("/admin/posts")
+////                        .loginProcessingUrl("/login")
+////                        .permitAll()
+////
+////                );
+////        return http.build();
+////
+////    }
+////}

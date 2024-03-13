@@ -33,14 +33,4 @@ public class PostDto { //Model entity is useful when we want to transport data b
 
 
 
-    /*@NotEmpty(message = "post title should not be empty")
-    private String title;
-    private String url;
 
-    @NotEmpty(message = "post content should not be empty")
-    private String content;
-    @NotEmpty(message = "post short description should not be empty")
-    private String shortDescription;
-    private LocalDateTime createdOn;
-    private LocalDateTime updateOn;
-    private Set<CommentDto> comments; // 82*/

@@ -12,4 +12,10 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
      List<Comment> findCommentsByPost(Long userId);
     // 108 Refactor Admin Side List Comments Feature
 
+     /* @Query("SELECT p from Post p WHERE " +
+            " p.title LIKE CONCAT('%', :query, '%') OR " +
+            " p.briefSummary LIKE CONCAT('%', :query, '%')")
+          // JPQL is Java Persistence Query Language defined in JPA specification. It is used to create queries against entities to store relational datbase
+   List<Post> searchPosts(String query);*/
+
 }

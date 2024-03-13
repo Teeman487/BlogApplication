@@ -21,7 +21,7 @@ public class Role {
     @Column(nullable = false, unique = false)
     private String name;
     @ManyToMany(mappedBy = "roles")
-    private List<User> users = new ArrayList<>();  // more than one users
+    private List<User> users = new ArrayList<>();  // many users for 1 ROLE_ADMIN, 2: ROLE_GUEST
 }
 
 

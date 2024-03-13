@@ -29,7 +29,7 @@ public class Comment {
     private LocalDateTime createdOn;
     @UpdateTimestamp
     private LocalDateTime updatedOn;
-
+//
     @ManyToOne  //  many comments for one post
     @JoinColumn(name = "post_id", nullable = false) // post_id is a foreign key to table post(id) // foreign key (post_id)
     private Post post; // indicate (one) post

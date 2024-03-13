@@ -24,7 +24,7 @@ public class SecurityUtils {  // Refactor Create Post Feature For Logged in User
         User user = getCurrentUser(); /// it has list of roles// we got the current logged-in user from SecurityContextHolder class
         Collection<GrantedAuthority> authorities = user.getAuthorities();
         for(GrantedAuthority authority: authorities){
-            return authority.getAuthority(); // return current logged in user role for ADMIN
+            return authority.getAuthority(); // return current logged in user role for ADMIN or guest
         }
         return null;
     }

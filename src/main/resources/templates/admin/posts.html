@@ -4,9 +4,9 @@
       xmlns:th="http://www.thymeleaf.org"
 >
 
-<div th:replace="admin/header :: header"></div> <!--We are creating header in admin/header file-->
+<div th:replace="admin/header :: header"></div> <!--We are importing header in admin/header file-->
 <body>
-<div th:replace="admin/header :: navbar"></div> <!--We are creating navbar in admin/header file-->
+<div th:replace="admin/header :: navbar"></div> <!--We are importing navbar in admin/header file-->
 
 <div class="container">
     <div class="row">
@@ -60,6 +60,6 @@
     </table>
 </div>
 
-<div th:replace="admin/footer :: footer"></div> <!--creadting footer in admin/footer page-->
+<div th:replace="admin/footer :: footer"></div> <!--creating footer in admin/footer page-->
 </body>
 </html>

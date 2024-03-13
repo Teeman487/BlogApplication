@@ -1,9 +1,14 @@
 package com.adebusoye.blogapplication.controller;
 
+
+
 import com.adebusoye.blogapplication.dto.CommentDto;
 import com.adebusoye.blogapplication.dto.PostDto;
+
+
 import com.adebusoye.blogapplication.service.CommentService;
 import com.adebusoye.blogapplication.service.PostService;
+
 import com.adebusoye.blogapplication.util.ROLE;
 import com.adebusoye.blogapplication.util.SecurityUtils;
 import jakarta.validation.Valid;
@@ -17,23 +22,27 @@ import java.util.List;
 
 @Controller
 public class PostController {
-    @Autowired
     PostService postService;
-    @Autowired
-    CommentService commentService;
+   CommentService commentService;
+
+    public PostController(PostService postService, CommentService commentService) {
+        this.postService = postService;
+        this.commentService = commentService;
+    }
+
     // handler method to create Post
     @GetMapping("/admin/posts")  // http://localhost:8080/admin/posts
     public String posts(Model model) {
         String role = SecurityUtils.getRole(); // return current logged in user role
         List<PostDto> posts = null;
-        if(ROLE.ROLE_ADMIN.name().equals(role)){  // admin having authority
+        if(ROLE.ROLE_GUEST.name().equals(role)){  // admin having authority
             posts = postService.findAllPosts();
         }
         else {
             posts = postService.findPostByUser();
         }
-        //List<PostDto> posts = postService.findAllPosts(); //  To allow CRUD operations
-       // List<PostDto> posts = postService.findPostByUser(); // FindPostByUser in
+     //   List<PostDto> posts = postService.findAllPosts(); //  To allow CRUD operations
+ //       List<PostDto> posts = postService.findPostByUser(); // FindPostByUser in
         model.addAttribute("posts", posts);
         return "/admin/posts"; // Thymeleaf view name
     }
@@ -42,52 +51,47 @@ public class PostController {
     // handler method to handle NewPost request
     @GetMapping("/admin/posts/newpost")
     public String newPost(Model model) {
+
         PostDto postDto = new PostDto();
+
+
         model.addAttribute("post", postDto);   ///
         return "admin/create_post"; // Create Post Form Handling in template.admin in Html and design
     }
+
+
     // handler method to handle list comments request 83
     //108 Refactor Admin Side List Comments Feature
     @GetMapping("/admin/posts/comments")
     public String postComments(Model model) {
-        String role = SecurityUtils.getRole();
-        List<CommentDto>comments = null;
-        if(ROLE.ROLE_ADMIN.name().equals(role)){
-            comments = commentService.findAllComments();
-        } else {
-            comments = commentService.findCommentsByPost();
-        }
-       // List<CommentDto> comments = commentService.findAllComments();
-        //List<CommentDto> comments = commentService.findCommentsByPost();
+//        String role = SecurityUtils.getRole();
+        //List<CommentDto>comments = null;
+
+//        if(ROLE.ROLE_ADMIN.name().equals(role)){
+//            comments = commentService.findAllComments();
+//        } else {
+//            comments = commentService.findCommentsByPost();
+//        }
+        List<CommentDto> comments = commentService.findAllComments();
+//        List<CommentDto> comments = commentService.findCommentsByPost();
         model.addAttribute("comments", comments);
         return "admin/comments";
     }
-    /* @GetMapping("/admin/posts/comments")
-    public String postComments(Model model){
-        String role = SecurityUtils.getRole();
-        List<CommentDto> comments = null;
-        if(ROLE.ROLE_ADMIN.name().equals(role)){
-            comments = commentService.findAllComments();
-        }else{
-            comments = commentService.findCommentsByPost();
-        }
-        model.addAttribute("comments", comments);
-        return "admin/comments";
-    }*/
 
+//
     // handler method to handle delete comment request 85
     @GetMapping("/admin/posts/comments/{commentId}")
     public String deleteComment(@PathVariable("commentId") Long commentId){
         commentService.deleteComment(commentId);
         return "redirect:/admin/posts/comments";
     }
-
-
-
-
-
-
-
+//
+//
+//
+//
+//
+//
+//
     // handler method to handle create form submit request
     @PostMapping("/admin/post")
     public String createPost(@Valid @ModelAttribute("post")  PostDto postDto, //Step3: Valid PostDto data
@@ -100,10 +104,10 @@ public class PostController {
         }
 
         postDto.setUrl(getUrl(postDto.getTitle()));  // link Url must be set
-        postService.createPost(postDto);
+       postService.createPost(postDto);
         return "redirect:/admin/posts";  // redirecting to url link at Top
     }
-
+//
     //handler method to handle edit post request
     @GetMapping("/admin/posts/{postId}/edit")
     public String editPostForm(@PathVariable("postId") Long postId,
@@ -119,9 +123,9 @@ public class PostController {
     @PostMapping("/admin/posts/{postId}")
     public  String  updatePost(@PathVariable("postId") Long postId,
                                @Valid @ModelAttribute("post") PostDto postDto,
-                               BindingResult resul,
+                               BindingResult result,
                                Model model) {
-        if(resul.hasErrors()){
+        if(result.hasErrors()){
             model.addAttribute("post",postDto);
             return  "admin/edit_post";
         }
@@ -130,6 +134,7 @@ public class PostController {
         return "redirect:/admin/posts";
     }
 
+
     // handler method to handle delete post request
     @GetMapping("/admin/posts/{postId}/delete")
     public String deletePost(@PathVariable("postId") Long postId){
@@ -137,6 +142,8 @@ public class PostController {
         return "redirect:/admin/posts";
 
     }
+
+
     // 60 handle method to handle view post request
     @GetMapping("/admin/posts/{postUrl}/view")
     public String viewPost(@PathVariable("postUrl") String postUrl,
@@ -145,7 +152,7 @@ public class PostController {
         model.addAttribute("post", postDto);
         return "admin/view_post";
     }
-
+//
     //Handler method to handle search blog posts request
     // localhost:8080/admin/posts/search?query=java
     @GetMapping("/admin/posts/search")
@@ -159,8 +166,8 @@ public class PostController {
     }
 
 
-    // Url
-    private static String getUrl(String postTitle) {
+    // Url  oops-concepts-in-java
+    public static String getUrl(String postTitle) {
         // OOPS Concepts Explained in Java
         // oops-concepts-explained-in-java
         String title = postTitle.trim().toLowerCase();
@@ -170,3 +177,6 @@ public class PostController {
 
     }
 }
+/*  postDto.setUrl(getUrl(postDto.getTitle())); */
+
+//          OOPS Concepts in Java = oops-concepts-in-java

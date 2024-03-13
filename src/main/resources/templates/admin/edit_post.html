@@ -17,10 +17,15 @@
 
             <div class="card-body" >  <!--th:action="@{/admin/tposts}" is redirective link url expresssion inline with submit form ; -->
 
-                <form role="form" method="post" th:action="@{/admin/posts/{postId}(postId=${post.id})}" th:object="${post}" >  <!-- i have line admin/posts/newpost to admin/posts  -->  <!--th:object="${post}" catches data from NewPost-->
+                <form role="form"
+                      method="post"
+                      th:action="@{/admin/posts/{postId}(postId=${post.id})}"
+                      th:object="${post}" >  <!-- i have line admin/posts/newpost to admin/posts  -->  <!--th:object="${post}" catches data from NewPost-->
                     <input type="hidden" th:field="*{id}">  <!-- We selected id to permanently attached to the-->
                     <input type="hidden" th:field="*{url}">          <!--We selected url to attached with auto increment id for continuous update-->
                     <input type="hidden" th:field="*{createdOn}">  <!--We selected  createdOn to attached with auto increment id for continuous update-->
+
+
 
                     <div class="mb-3">
                         <label class="form-label"> Post Title </label>

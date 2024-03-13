@@ -1,5 +1,6 @@
 package com.adebusoye.blogapplication.controller;
 
+
 import com.adebusoye.blogapplication.dto.CommentDto;
 import com.adebusoye.blogapplication.dto.PostDto;
 import com.adebusoye.blogapplication.service.PostService;
@@ -14,8 +15,11 @@ import java.util.List;
 
 @Controller
 public class BlogController {
-    @Autowired
     PostService postService;
+
+    public BlogController(PostService postService) {
+        this.postService = postService;
+    }
 
     //68 handler method to handle view[List of Blog Posts-Client side]
     // http://localhost:8080/
@@ -26,6 +30,7 @@ public class BlogController {
         return "blog/view_posts";
 
     }
+
     //70 handler method to handle show post request coming from "blog/view_posts"  //
     @GetMapping("/post/{postUrl}")  /* a new page development coming from viw_posts*/
     private String showPost(@PathVariable("postUrl") String postUrl,
@@ -37,6 +42,9 @@ public class BlogController {
         model.addAttribute("comment",commentDto);  //79 Create comment form Handling
         return "blog/blog_post";
     }
+
+
+
     // handler method to handle blog post search request
     // http://localhost:8080/page/search?query=java
     @GetMapping("/page/search")
