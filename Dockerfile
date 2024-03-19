@@ -1,25 +1,19 @@
 #FROM ubuntu:latest
-#LABEL authors="MR AKINADE AA"
-#
-#ENTRYPOINT ["top", "-b"]
-
-
-#FROM ubuntu:latest
-##FROM openjdk:17-jdk-alpine
-#ARG JAR_FILE=target/*.jar
-#COPY ./target/blogapplication-0.0.1-SNAPSHOT.jar app.jar
-#LABEL authors="MR AKINADE AA"
-#
-#ENTRYPOINT ["top", "-b"]
-##ENTRYPOINT ["java","-jar","app.jar"]
-
-
-#FROM ubuntu:latest
+# Use a base image with Java (choose appropriate JDK version)
 FROM openjdk:17-jdk-alpine
-LABEL authors="MR AKINADE AA"
-ARG JAR_FILE=target/*.jar
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy the JAR file into the container
 COPY ./target/blogapplication-0.0.1-SNAPSHOT.jar app.jar
+
+# Expose the port your application listens on
 EXPOSE 8080
 
+
 #ENTRYPOINT ["top", "-b"]
-ENTRYPOINT ["java","-jar","/blogapplication-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java","-jar","/app.jar"]
+
+
+
+
