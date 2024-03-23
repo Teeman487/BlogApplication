@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.adebusoye.blogapplication.BlogapplicationApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.053 s - in com.adebusoye.blogapplication.BlogapplicationApplicationTests

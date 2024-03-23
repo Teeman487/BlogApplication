@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<div th:replace="blog/header :: header"></div>
+<body>
+<div th:replace="blog/header :: navbar"></div>
+
+<br/>
+<div class="container">
+    <div class="row">
+        <div class="col-md-9">
+
+            <div th:each = "post: ${postsResponse}">
+
+                <!----> <!---->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>
+                            <!--link to next (show)page and must be caught in Handling form -->
+                            <a th:href="@{/post/{postUrl}(postUrl=${post.url})}"
+                               th:text="${post.title}"></a>  <!--post.url will link title to a new page-->
+                        </h3>
+                        <div>
+                            <strong th:text="${#temporals.format(post.createdOn, 'dd MMM yyy')}">
+                            </strong>
+                        </div>
+                        <!---->
+                    </div>   <!--card header-->
+
+                    <div class="card-body">
+                        <span th:utext="${post.briefSummary}"> </span>
+                        <a th:href="@{/post/{postUrl}(postUrl=${post.url})}" >Read more</a><!--link to next (show)page and must be caught in Handling form -->
+                    </div>
+                </div>  <!--card-->
+                <!----><!----><!---->
+                <br />
+            </div>   <!--iteration-->
+        </div> <!--col md3-->
+
+
+        <div class="col-md-3">
+            <!--search bar-->
+            <div th:replace="blog/search :: search"></div>
+        </div>
+
+    </div> <!--class row-->
+</div>   <!--class container-->
+<div th:replace="blog/footer :: footer"></div>
+
+</body>
+</html>
