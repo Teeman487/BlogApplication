@@ -4,12 +4,14 @@ FROM openjdk:17-jdk-alpine
 # Set the working directory inside the container
 WORKDIR /app
 
-RUN chmod +x /app
 ARG JAR_FILE=target/*.jar
 
 # Copy the JAR file into the container
 COPY ./target/blogapplication-0.0.1-SNAPSHOT.jar app.jar
 #target/blogapplication-0.0.1-SNAPSHOT.jar app.jar
+
+# Set permissions for the JAR file
+RUN chmod +r /app/app.jar
 
 # Expose the port your application listens on
 #EXPOSE 8080
@@ -17,7 +19,3 @@ COPY ./target/blogapplication-0.0.1-SNAPSHOT.jar app.jar
 
 #ENTRYPOINT ["top", "-b"]
 ENTRYPOINT ["java","-jar","/app.jar"]
-
-
-
-
