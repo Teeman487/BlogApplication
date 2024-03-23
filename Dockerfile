@@ -8,7 +8,6 @@ RUN chmod +x /app
 ARG JAR_FILE=target/*.jar
 
 # Copy the JAR file into the container
-RUN chmod +x target/blogapplication-0.0.1-SNAPSHOT.jar app.jar
 COPY ./target/blogapplication-0.0.1-SNAPSHOT.jar app.jar
 #target/blogapplication-0.0.1-SNAPSHOT.jar app.jar
 
