@@ -2,7 +2,6 @@
 # Use a base image with Java (choose appropriate JDK version)
 FROM openjdk:17-jdk-alpine
 # Set the working directory inside the container
-RUN chmod +x /app
 WORKDIR /app
 
 RUN chmod +x /app
