@@ -11,7 +11,7 @@ COPY ./target/blogapplication-0.0.1-SNAPSHOT.jar app.jar
 #target/blogapplication-0.0.1-SNAPSHOT.jar app.jar
 
 # Set permissions for the JAR file
-RUN chmod +r /app/app.jar
+#RUN chmod +r app.jar
 
 # Expose the port your application listens on
 #EXPOSE 8080
